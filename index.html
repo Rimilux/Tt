@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors Game</title>
+  <style>
+    body {
+      background: #f1f2f6;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    h2 {
+      margin-bottom: 10px;
+      color: #222f3e;
+    }
+    .choices {
+      display: flex;
+      gap: 30px;
+      margin: 20px 0;
+    }
+    .choice-btn {
+      font-size: 2rem;
+      padding: 20px;
+      border: none;
+      border-radius: 50%;
+      background: #576574;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .choice-btn:hover {
+      background: #10ac84;
+    }
+    .result, .score {
+      font-size: 1.3rem;
+      margin: 12px 0;
+      color: #222f3e;
+    }
+  </style>
+</head>
+<body>
+  <h2>Rock, Paper, Scissors</h2>
+  <div class="choices">
+    <button class="choice-btn" onclick="play('rock')">✊</button>
+    <button class="choice-btn" onclick="play('paper')">✋</button>
+    <button class="choice-btn" onclick="play('scissors')">✌️</button>
+  </div>
+  <div class="result" id="result">अपना चुनाव करें!</div>
+  <div class="score" id="score">आप: 0 | कंप्यूटर: 0</div>
+  <script>
+    let userScore = 0, computerScore = 0;
+    function play(userChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const compChoice = choices[Math.floor(Math.random() * 3)];
+      let result = '';
+      if(userChoice === compChoice) {
+        result = 'ड्रा! दोनों ने ' + getEmoji(userChoice) + ' चुना।';
+      } else if(
+        (userChoice === 'rock' && compChoice === 'scissors') ||
+        (userChoice === 'paper' && compChoice === 'rock') ||
+        (userChoice === 'scissors' && compChoice === 'paper')
+      ) {
+        userScore++;
+        result = 'आप जीते! ' + getEmoji(userChoice) + ' बनाम ' + getEmoji(compChoice);
+      } else {
+        computerScore++;
+        result = 'कंप्यूटर जीता! ' + getEmoji(compChoice) + ' बनाम ' + getEmoji(userChoice);
+      }
+      document.getElementById('result').textContent = result;
+      document.getElementById('score').textContent = `आप: ${userScore} | कंप्यूटर: ${computerScore}`;
+    }
+    function getEmoji(choice) {
+      if(choice === 'rock') return '✊';
+      if(choice === 'paper') return '✋';
+      return '✌️';
+    }
+  </script>
+</body>
+</html>
